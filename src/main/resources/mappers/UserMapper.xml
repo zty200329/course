@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.course.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.course.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="card_id" property="cardId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_teacher
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.course.model.User" >
+    insert into user_teacher ( card_id, `name`,
+      `password`, `role`)
+    values ( #{cardId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.course.model.User" >
+    update user_teacher
+    set card_id = #{cardId,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      `role` = #{role,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, card_id, `name`, `password`, `role`
+    from user_teacher
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, card_id, `name`, `password`, `role`
+    from user_teacher
+  </select>
+  <select id="selectUserByUsername" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, card_id, `name`, `password`, `role`
+    from user_teacher
+    where card_id = #{cardId,jdbcType=VARCHAR}
+  </select>
+</mapper>
